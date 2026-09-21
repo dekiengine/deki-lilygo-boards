@@ -1,0 +1,11 @@
+{
+  "id": "deki-lilygo-boards",
+  "displayName": "LilyGO Boards",
+  "description": "Build targets for LilyGO boards: T-Deck Plus and T-Display S3 AMOLED",
+  "minEngine": "0.17.0",
+  "requires": [
+    "deki-esp32-integration",
+    "deki-lovyangfx-integration"
+  ],
+  "features": []
+}

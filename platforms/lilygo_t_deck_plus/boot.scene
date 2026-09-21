@@ -1,0 +1,226 @@
+{
+  "objects": [
+    {
+      "active": true,
+      "children": [
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "ESP32PinSetup",
+              "properties": {
+                "pin": 10,
+                "high": true,
+                "settleMs": 100
+              },
+              "type": "DekiEsp32::ESP32PinSetup"
+            }
+          ],
+          "id": 600,
+          "name": "Power Enable (GPIO 10)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "ESP32PinSetup",
+              "properties": {
+                "pin": 39,
+                "high": true,
+                "settleMs": 0
+              },
+              "type": "DekiEsp32::ESP32PinSetup"
+            }
+          ],
+          "id": 601,
+          "name": "SD Card Deselect (GPIO 39)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "ESP32PinSetup",
+              "properties": {
+                "pin": 9,
+                "high": true,
+                "settleMs": 0
+              },
+              "type": "DekiEsp32::ESP32PinSetup"
+            }
+          ],
+          "id": 602,
+          "name": "LoRa Deselect (GPIO 9)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "LGFXDisplayPanel",
+              "properties": {
+                "panelType": "ST7789",
+                "panelWidth": 240,
+                "panelHeight": 320,
+                "memoryWidth": 240,
+                "memoryHeight": 320,
+                "rotation": "Landscape",
+                "offsetX": 0,
+                "offsetY": 0,
+                "invertColor": true,
+                "rgbOrder": false,
+                "busType": "SPI",
+                "mosiPin": 41,
+                "misoPin": 38,
+                "clkPin": 40,
+                "dcPin": 11,
+                "spiPort": 1,
+                "spiWriteHz": 40000000,
+                "csPin": 12,
+                "rstPin": -1,
+                "blPin": 42,
+                "blPwmChannel": 7,
+                "blInvert": false,
+                "swapBytes": true,
+                "usePsram": false,
+                "doubleBuffer": false
+              },
+              "type": "DekiLovyanGfx::LGFXDisplayPanel"
+            }
+          ],
+          "id": 603,
+          "name": "Display (ST7789)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "I2CBusComponent",
+              "properties": {
+                "i2cPort": 0,
+                "sdaPin": 18,
+                "sclPin": 8,
+                "i2cHz": 400000
+              },
+              "type": "DekiI2c::I2CBusComponent"
+            }
+          ],
+          "id": 604,
+          "name": "I2C Bus",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "LGFXTouchPanel",
+              "properties": {
+                "driverType": "GT911",
+                "i2cPort": 0,
+                "intPin": 16,
+                "rstPin": -1,
+                "xMin": 0,
+                "xMax": 319,
+                "yMin": 0,
+                "yMax": 239,
+                "offsetRotation": "None",
+                "busShared": false
+              },
+              "type": "DekiLovyanGfx::LGFXTouchPanel"
+            }
+          ],
+          "id": 605,
+          "name": "Touch (GT911)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        }
+      ],
+      "components": [
+        {
+          "class": "PlatformSetupComponent",
+          "properties": {
+            "setupComponents": [
+              {
+                "id": 600,
+                "typeId": 921998396
+              },
+              {
+                "id": 601,
+                "typeId": 921998396
+              },
+              {
+                "id": 602,
+                "typeId": 921998396
+              },
+              {
+                "id": 603,
+                "typeId": 798871171
+              },
+              {
+                "id": 604,
+                "typeId": 1919918867
+              },
+              {
+                "id": 605,
+                "typeId": 3744725680
+              }
+            ]
+          },
+          "type": "Deki::PlatformSetupComponent"
+        }
+      ],
+      "id": 1,
+      "name": "Setup",
+      "transform": {
+        "rotation": 0.0,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    }
+  ]
+}

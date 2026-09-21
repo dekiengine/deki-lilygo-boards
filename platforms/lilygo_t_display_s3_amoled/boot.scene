@@ -1,0 +1,171 @@
+{
+  "objects": [
+    {
+      "active": true,
+      "children": [
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "ESP32PinSetup",
+              "properties": {
+                "pin": 38,
+                "high": true,
+                "settleMs": 50
+              },
+              "type": "DekiEsp32::ESP32PinSetup"
+            }
+          ],
+          "id": 600,
+          "name": "Panel Power (GPIO 38)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "LGFXDisplayPanel",
+              "properties": {
+                "panelType": "RM67162",
+                "panelWidth": 240,
+                "panelHeight": 536,
+                "memoryWidth": 240,
+                "memoryHeight": 536,
+                "rotation": "Landscape",
+                "offsetX": 0,
+                "offsetY": 0,
+                "invertColor": false,
+                "rgbOrder": false,
+                "busType": "QSPI",
+                "clkPin": 47,
+                "io0Pin": 18,
+                "io1Pin": 7,
+                "io2Pin": 48,
+                "io3Pin": 5,
+                "spiPort": 1,
+                "spiWriteHz": 75000000,
+                "csPin": 6,
+                "rstPin": 17,
+                "blPin": -1,
+                "blPwmChannel": 0,
+                "blInvert": false,
+                "swapBytes": true,
+                "usePsram": true,
+                "doubleBuffer": false
+              },
+              "type": "DekiLovyanGfx::LGFXDisplayPanel"
+            }
+          ],
+          "id": 601,
+          "name": "Display (RM67162)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "I2CBusComponent",
+              "properties": {
+                "i2cPort": 0,
+                "sdaPin": 3,
+                "sclPin": 2,
+                "i2cHz": 400000
+              },
+              "type": "DekiI2c::I2CBusComponent"
+            }
+          ],
+          "id": 602,
+          "name": "I2C Bus",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "LGFXTouchPanel",
+              "properties": {
+                "driverType": "CST816S",
+                "i2cPort": 0,
+                "intPin": 21,
+                "rstPin": -1,
+                "xMin": 0,
+                "xMax": 239,
+                "yMin": 0,
+                "yMax": 535,
+                "offsetRotation": "None",
+                "busShared": false
+              },
+              "type": "DekiLovyanGfx::LGFXTouchPanel"
+            }
+          ],
+          "id": 603,
+          "name": "Touch (CST816T)",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        }
+      ],
+      "components": [
+        {
+          "class": "PlatformSetupComponent",
+          "properties": {
+            "setupComponents": [
+              {
+                "id": 600,
+                "typeId": 921998396
+              },
+              {
+                "id": 601,
+                "typeId": 798871171
+              },
+              {
+                "id": 602,
+                "typeId": 1919918867
+              },
+              {
+                "id": 603,
+                "typeId": 3744725680
+              }
+            ]
+          },
+          "type": "Deki::PlatformSetupComponent"
+        }
+      ],
+      "id": 1,
+      "name": "Setup",
+      "transform": {
+        "rotation": 0.0,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    }
+  ]
+}

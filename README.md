@@ -4,7 +4,7 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 
 | Target | Board | Display | Touch |
 | --- | --- | --- | --- |
-| `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI | GT911 |
+| `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI | GT911, plus the keyboard, trackball and SD card |
 | `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI | CST816T (touch version) |
 
 Both are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
@@ -15,7 +15,7 @@ Both are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-I
 
 ## Install
 
-Package Manager in the Deki Editor, or `DekiEditor --packages-add deki-lilygo-boards <project>`. It brings `deki-esp32-integration` and `deki-lovyangfx-integration` with it.
+Package Manager in the Deki Editor, or `DekiEditor --packages-add deki-lilygo-boards <project>`. It brings `deki-esp32-integration`, `deki-lovyangfx-integration`, `deki-input`, `deki-i2c`, `deki-gpio` and `deki-sdcard` with it. The keyboard and trackball are `deki-input` features that need the I2C and GPIO packages, which is why those two are listed.
 
 Then pick the board in the Build panel, or:
 
@@ -38,10 +38,13 @@ Boot order, as the boot scene lists it:
 3. Display: ST7789, 240x320 shown in landscape, SPI2 at 40 MHz (MOSI 41, MISO 38, SCK 40, DC 11, CS 12), backlight on GPIO 42.
 4. I2C bus: SDA 18, SCL 8.
 5. Touch: GT911 at 0x5D, interrupt on GPIO 16.
+6. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.
+7. Trackball: GPIO 3, 15, 1, 2 for up, down, left, right, click on GPIO 0. As the arrow keys and Enter; set `mode` to `Pointer` in your copy to make it a mouse instead.
+8. SD card: on the display's SPI bus, chip select GPIO 39. The game's assets live on the card (`S:/`). A missing card is logged and the boot carries on (`required` is off), so the screen and controls still come up.
 
-Set up by this package: display, backlight, touch.
+Set up by this package: display, backlight, touch, keyboard, trackball, SD card. Keys arrive through `deki-input` like a desktop keyboard's: letters, digits, symbols, Enter, Backspace, Space, arrows.
 
-Not set up: keyboard (I2C 0x55), trackball (GPIO 3, 15, 1, 2, click on 0), SD card, LoRa, speaker, microphone, GPS (UART on GPIO 43 and 44), battery reading (GPIO 4). The pins are here so you can add them to your copy of the boot scene.
+Not set up: LoRa, speaker, microphone, GPS (UART on GPIO 43 and 44), battery reading (GPIO 4).
 
 Sources: [T-Deck `utilities.h`](https://github.com/Xinyuan-LilyGO/T-Deck/blob/master/examples/UnitTest/utilities.h), and the LovyanGFX configuration Meshtastic runs on this board ([`LGFX_T_DECK.h`](https://github.com/meshtastic/device-ui/blob/master/include/graphics/LGFX/LGFX_T_DECK.h)).
 

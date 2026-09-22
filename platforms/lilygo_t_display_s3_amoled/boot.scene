@@ -8,13 +8,13 @@
           "children": [],
           "components": [
             {
-              "class": "ESP32PinSetup",
+              "class": "GpioPinSetup",
               "properties": {
                 "pin": 38,
                 "high": true,
                 "settleMs": 50
               },
-              "type": "DekiEsp32::ESP32PinSetup"
+              "type": "DekiGpio::GpioPinSetup"
             }
           ],
           "id": 600,
@@ -138,7 +138,7 @@
             "setupComponents": [
               {
                 "id": 600,
-                "typeId": 921998396
+                "typeId": 3968078442
               },
               {
                 "id": 601,

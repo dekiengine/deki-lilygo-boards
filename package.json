@@ -5,7 +5,11 @@
   "minEngine": "0.17.0",
   "requires": [
     "deki-esp32-integration",
-    "deki-lovyangfx-integration"
+    "deki-lovyangfx-integration",
+    "deki-input",
+    "deki-i2c",
+    "deki-gpio",
+    "deki-sdcard"
   ],
   "features": []
 }

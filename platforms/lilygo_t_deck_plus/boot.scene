@@ -8,13 +8,13 @@
           "children": [],
           "components": [
             {
-              "class": "ESP32PinSetup",
+              "class": "GpioPinSetup",
               "properties": {
                 "pin": 10,
                 "high": true,
                 "settleMs": 100
               },
-              "type": "DekiEsp32::ESP32PinSetup"
+              "type": "DekiGpio::GpioPinSetup"
             }
           ],
           "id": 600,
@@ -32,13 +32,13 @@
           "children": [],
           "components": [
             {
-              "class": "ESP32PinSetup",
+              "class": "GpioPinSetup",
               "properties": {
                 "pin": 39,
                 "high": true,
                 "settleMs": 0
               },
-              "type": "DekiEsp32::ESP32PinSetup"
+              "type": "DekiGpio::GpioPinSetup"
             }
           ],
           "id": 601,
@@ -56,13 +56,13 @@
           "children": [],
           "components": [
             {
-              "class": "ESP32PinSetup",
+              "class": "GpioPinSetup",
               "properties": {
                 "pin": 9,
                 "high": true,
                 "settleMs": 0
               },
-              "type": "DekiEsp32::ESP32PinSetup"
+              "type": "DekiGpio::GpioPinSetup"
             }
           ],
           "id": 602,
@@ -176,6 +176,87 @@
             "x": 0.0,
             "y": 0.0
           }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "I2CKeyboardComponent",
+              "properties": {
+                "i2cPort": 0,
+                "i2cAddress": 85
+              },
+              "type": "DekiInput::I2CKeyboardComponent"
+            }
+          ],
+          "id": 606,
+          "name": "Keyboard",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "TrackballComponent",
+              "properties": {
+                "mode": "Keys",
+                "pixelsPerStep": 4,
+                "upPin": 3,
+                "downPin": 15,
+                "leftPin": 1,
+                "rightPin": 2,
+                "clickPin": 0,
+                "clickActiveLow": true
+              },
+              "type": "DekiInput::TrackballComponent"
+            }
+          ],
+          "id": 607,
+          "name": "Trackball",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "class": "SDCardComponent",
+              "properties": {
+                "mode": "SPI",
+                "mosiPin": 41,
+                "misoPin": 38,
+                "clkPin": 40,
+                "csPin": 39,
+                "spiHz": 20000000,
+                "cdPin": -1,
+                "required": false
+              },
+              "type": "DekiSdCard::SDCardComponent"
+            }
+          ],
+          "id": 608,
+          "name": "SD Card",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
         }
       ],
       "components": [
@@ -185,15 +266,15 @@
             "setupComponents": [
               {
                 "id": 600,
-                "typeId": 921998396
+                "typeId": 3968078442
               },
               {
                 "id": 601,
-                "typeId": 921998396
+                "typeId": 3968078442
               },
               {
                 "id": 602,
-                "typeId": 921998396
+                "typeId": 3968078442
               },
               {
                 "id": 603,
@@ -206,6 +287,18 @@
               {
                 "id": 605,
                 "typeId": 3744725680
+              },
+              {
+                "id": 606,
+                "typeId": 4221578386
+              },
+              {
+                "id": 607,
+                "typeId": 1371136379
+              },
+              {
+                "id": 608,
+                "typeId": 4082406193
               }
             ]
           },

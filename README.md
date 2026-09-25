@@ -40,7 +40,7 @@ Boot order, as the boot scene lists it:
 5. Touch: GT911 at 0x5D, interrupt on GPIO 16.
 6. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.
 7. Trackball: GPIO 3, 15, 1, 2 for up, down, left, right, click on GPIO 0. As the arrow keys and Enter; set `mode` to `Pointer` in your copy to make it a mouse instead.
-8. SD card: on the display's SPI bus, chip select GPIO 39. The game's assets live on the card (`S:/`). A missing card is logged and the boot carries on (`required` is off), so the screen and controls still come up.
+8. SD card: on the display's SPI bus, chip select GPIO 39, as `S:/`. A missing card is logged and the boot carries on (`required` is off). The game's assets are in the flash, so a game runs with no card in; a game too big for the flash can keep them on the card instead (Storage > Assets on: External storage), and then needs one.
 
 Set up by this package: display, backlight, touch, keyboard, trackball, SD card. Keys arrive through `deki-input` like a desktop keyboard's: letters, digits, symbols, Enter, Backspace, Space, arrows.
 
@@ -60,6 +60,8 @@ Boot order:
 On the version without touch, step 4 logs that nothing answered and the boot carries on. Remove the step from your copy to skip the wait.
 
 An AMOLED has no backlight pin. Brightness is a panel command.
+
+The board has no SD card slot, so the game's assets are always in its flash (about 13 MB of the 16 MB).
 
 The RM67162 ignores a write whose start or size is odd along its short axis. `deki-lovyangfx-integration` widens partial screen updates to even rows on this panel, so there is nothing to do about it in a game.
 

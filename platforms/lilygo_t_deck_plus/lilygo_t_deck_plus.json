@@ -24,7 +24,8 @@
     "spi",
     "i2c",
     "wifi",
-    "bluetooth"
+    "bluetooth",
+    "external-storage"
   ],
   "requiresPackages": [
     "deki-esp32-integration",

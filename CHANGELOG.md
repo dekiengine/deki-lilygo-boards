@@ -8,6 +8,15 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Changed
+- Both boards keep the game's assets in their flash (internal storage), so a
+  T-Deck Plus runs a game with no SD card in it; before, it read them from
+  the card only. The T-Deck provides `external-storage`, so a game too big
+  for the flash can keep its assets on the card instead (Storage > Assets on).
+  The T-Display S3 AMOLED, which has no card, can now run a game at all.
+
 ## 0.17.1
 
 ### Added

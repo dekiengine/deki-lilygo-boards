@@ -8,7 +8,7 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
-## Unreleased
+## 0.17.2
 
 ### Changed
 - Both boards keep the game's assets in their flash (internal storage), so a

@@ -8,6 +8,12 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Changed
+- The boot scenes are saved in the current scene format, as the editor writes
+  them, so an adopted board matches its package copy.
+
 ## 0.17.2
 
 ### Changed

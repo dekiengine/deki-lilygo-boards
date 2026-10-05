@@ -1,4 +1,5 @@
 {
+  "formatVersion": 1,
   "objects": [
     {
       "active": true,
@@ -8,10 +9,9 @@
           "children": [],
           "components": [
             {
-              "class": "GpioPinSetup",
               "properties": {
-                "pin": 10,
                 "high": true,
+                "pin": 10,
                 "settleMs": 100
               },
               "type": "DekiGpio::GpioPinSetup"
@@ -32,10 +32,9 @@
           "children": [],
           "components": [
             {
-              "class": "GpioPinSetup",
               "properties": {
-                "pin": 39,
                 "high": true,
+                "pin": 39,
                 "settleMs": 0
               },
               "type": "DekiGpio::GpioPinSetup"
@@ -56,10 +55,9 @@
           "children": [],
           "components": [
             {
-              "class": "GpioPinSetup",
               "properties": {
-                "pin": 9,
                 "high": true,
+                "pin": 9,
                 "settleMs": 0
               },
               "type": "DekiGpio::GpioPinSetup"
@@ -80,33 +78,56 @@
           "children": [],
           "components": [
             {
-              "class": "LGFXDisplayPanel",
               "properties": {
-                "panelType": "ST7789",
-                "panelWidth": 240,
-                "panelHeight": 320,
-                "memoryWidth": 240,
-                "memoryHeight": 320,
-                "rotation": "Landscape",
-                "offsetX": 0,
-                "offsetY": 0,
-                "invertColor": true,
-                "rgbOrder": false,
-                "busType": "SPI",
-                "mosiPin": 41,
-                "misoPin": 38,
-                "clkPin": 40,
-                "dcPin": 11,
-                "spiPort": 1,
-                "spiWriteHz": 40000000,
-                "csPin": 12,
-                "rstPin": -1,
+                "blInvert": false,
                 "blPin": 42,
                 "blPwmChannel": 7,
-                "blInvert": false,
+                "busType": "SPI",
+                "clkPin": 40,
+                "csPin": 12,
+                "d0Pin": -1,
+                "d10Pin": -1,
+                "d11Pin": -1,
+                "d12Pin": -1,
+                "d13Pin": -1,
+                "d14Pin": -1,
+                "d15Pin": -1,
+                "d1Pin": -1,
+                "d2Pin": -1,
+                "d3Pin": -1,
+                "d4Pin": -1,
+                "d5Pin": -1,
+                "d6Pin": -1,
+                "d7Pin": -1,
+                "d8Pin": -1,
+                "d9Pin": -1,
+                "dcPin": 11,
+                "doubleBuffer": false,
+                "invertColor": true,
+                "io0Pin": -1,
+                "io1Pin": -1,
+                "io2Pin": -1,
+                "io3Pin": -1,
+                "memoryHeight": 320,
+                "memoryWidth": 240,
+                "misoPin": 38,
+                "mosiPin": 41,
+                "offsetX": 0,
+                "offsetY": 0,
+                "panelHeight": 320,
+                "panelType": "ST7789",
+                "panelWidth": 240,
+                "parWriteHz": 40000000,
+                "rdPin": -1,
+                "rgbOrder": false,
+                "rotation": "Landscape",
+                "rsPin": -1,
+                "rstPin": -1,
+                "spiPort": 1,
+                "spiWriteHz": 40000000,
                 "swapBytes": true,
                 "usePsram": false,
-                "doubleBuffer": false
+                "wrPin": -1
               },
               "type": "DekiLovyanGfx::LGFXDisplayPanel"
             }
@@ -126,12 +147,11 @@
           "children": [],
           "components": [
             {
-              "class": "I2CBusComponent",
               "properties": {
+                "i2cHz": 400000,
                 "i2cPort": 0,
-                "sdaPin": 18,
                 "sclPin": 8,
-                "i2cHz": 400000
+                "sdaPin": 18
               },
               "type": "DekiI2c::I2CBusComponent"
             }
@@ -151,18 +171,21 @@
           "children": [],
           "components": [
             {
-              "class": "LGFXTouchPanel",
               "properties": {
+                "busShared": false,
+                "clkPin": -1,
+                "csPin": -1,
                 "driverType": "GT911",
                 "i2cPort": 0,
                 "intPin": 16,
-                "rstPin": -1,
-                "xMin": 0,
-                "xMax": 319,
-                "yMin": 0,
-                "yMax": 239,
+                "misoPin": -1,
+                "mosiPin": -1,
                 "offsetRotation": "None",
-                "busShared": false
+                "rstPin": -1,
+                "xMax": 319,
+                "xMin": 0,
+                "yMax": 239,
+                "yMin": 0
               },
               "type": "DekiLovyanGfx::LGFXTouchPanel"
             }
@@ -182,10 +205,9 @@
           "children": [],
           "components": [
             {
-              "class": "I2CKeyboardComponent",
               "properties": {
-                "i2cPort": 0,
-                "i2cAddress": 85
+                "i2cAddress": 85,
+                "i2cPort": 0
               },
               "type": "DekiInput::I2CKeyboardComponent"
             }
@@ -205,16 +227,15 @@
           "children": [],
           "components": [
             {
-              "class": "TrackballComponent",
               "properties": {
-                "mode": "Keys",
-                "pixelsPerStep": 4,
-                "upPin": 3,
+                "clickActiveLow": true,
+                "clickPin": 0,
                 "downPin": 15,
                 "leftPin": 1,
+                "mode": "Keys",
+                "pixelsPerStep": 4,
                 "rightPin": 2,
-                "clickPin": 0,
-                "clickActiveLow": true
+                "upPin": 3
               },
               "type": "DekiInput::TrackballComponent"
             }
@@ -234,16 +255,21 @@
           "children": [],
           "components": [
             {
-              "class": "SDCardComponent",
               "properties": {
+                "cdPin": -1,
+                "clkPin": 40,
+                "cmdPin": 15,
+                "csPin": 39,
+                "d0Pin": 2,
+                "d1Pin": 4,
+                "d2Pin": 12,
+                "d3Pin": 13,
+                "misoPin": 38,
                 "mode": "SPI",
                 "mosiPin": 41,
-                "misoPin": 38,
-                "clkPin": 40,
-                "csPin": 39,
-                "spiHz": 20000000,
-                "cdPin": -1,
-                "required": false
+                "required": false,
+                "sdmmcHz": 20000000,
+                "spiHz": 20000000
               },
               "type": "DekiSdCard::SDCardComponent"
             }
@@ -261,7 +287,6 @@
       ],
       "components": [
         {
-          "class": "PlatformSetupComponent",
           "properties": {
             "setupComponents": [
               {

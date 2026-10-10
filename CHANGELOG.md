@@ -8,6 +8,15 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Fixed
+- T-Deck Plus: a touch landed away from the finger, further off towards the
+  top of the screen. The GT911's range was given as 320x240, the landscape
+  screen, but LovyanGFX takes it along the panel's own 240x320 and rotates
+  after, so X was stretched by 4/3 and Y squeezed by 3/4. It is 240x320 now.
+  A project that adopted the board takes it with **Update** in the Build panel.
+
 ## 0.18.0
 
 ### Changed

@@ -35,14 +35,14 @@ Boot order, as the boot scene lists it:
 
 1. GPIO 10 high. It switches the rail that feeds the display, the touch controller and the keyboard.
 2. GPIO 39 and GPIO 9 high. The SD card and the LoRa radio share the display's SPI bus; their chip selects are held high so they stay off it.
-3. Display: ST7789, 240x320 shown in landscape, SPI2 at 40 MHz (MOSI 41, MISO 38, SCK 40, DC 11, CS 12), backlight on GPIO 42.
+3. Display: ST7789, 240x320 shown in landscape, SPI2 at 80 MHz (MOSI 41, MISO 38, SCK 40, DC 11, CS 12), backlight on GPIO 42. Each frame is sent from the other core while the next is drawn (`asyncPresent`), using two frames of PSRAM.
 4. I2C bus: SDA 18, SCL 8.
 5. Touch: GT911 at 0x5D, interrupt on GPIO 16.
 6. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.
 7. Trackball: GPIO 3, 15, 1, 2 for up, down, left, right, click on GPIO 0. A pointer that glides like a ThinkPad TrackPoint (`glideMs` 120, `acceleration` 3), with the click as a mouse button; set `mode` to `Keys` in your copy for the arrow keys and Enter instead.
 8. SD card: on the display's SPI bus, chip select GPIO 39, as `S:/`. A missing card is logged and the boot carries on (`required` is off). The game's assets are in the flash, so a game runs with no card in; a game too big for the flash can keep them on the card instead (Storage > Assets on: External storage), and then needs one.
 9. GPS: UART 1, receiving on GPIO 44 and sending on 43. The board ships with an L76K (9600 baud) or a u-blox M10 (38400), so the speed is found by itself (`baudRate` 0).
-10. LoRa: SX1262 on the display's SPI bus, CS 9, BUSY 13, RESET 17, a 1.8 V TCXO on DIO3 and DIO2 switching the antenna. Set for Europe: 868.1 MHz, 14 dBm, 1% duty cycle. Change `frequencyHz` (and the power and duty cycle) in your copy for another region, such as 915 MHz in the Americas.
+10. LoRa: SX1262 on the display's SPI bus, CS 9, BUSY 13, RESET 17, DIO1 45, a 1.8 V TCXO on DIO3 and DIO2 switching the antenna. Set for Europe: 868.1 MHz, 14 dBm, 1% duty cycle. Change `frequencyHz` (and the power and duty cycle) in your copy for another region, such as 915 MHz in the Americas.
 
 Set up by this package: display, backlight, touch, keyboard, trackball, SD card, GPS, LoRa. Keys arrive through `deki-input` like a desktop keyboard's: letters, digits, symbols, Enter, Backspace, Space, arrows.
 

@@ -79,6 +79,7 @@
           "components": [
             {
               "properties": {
+                "asyncPresent": true,
                 "blInvert": false,
                 "blPin": 42,
                 "blPwmChannel": 7,
@@ -124,7 +125,7 @@
                 "rsPin": -1,
                 "rstPin": -1,
                 "spiPort": 1,
-                "spiWriteHz": 40000000,
+                "spiWriteHz": 80000000,
                 "swapBytes": true,
                 "usePsram": false,
                 "wrPin": -1

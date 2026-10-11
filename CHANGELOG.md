@@ -19,6 +19,12 @@ alongside one that has them.
 - T-Deck Plus: the trackball is a pointer that glides like a ThinkPad
   TrackPoint, and its click is a mouse click. It was arrow keys.
 
+### Changed
+- T-Deck Plus: 60 fps. The display's SPI runs at 80 MHz (it was 40), and
+  each frame is sent from the other core while the next is drawn
+  (`asyncPresent`): sending a frame took 31 ms, now 16, and no longer adds
+  to the drawing. The demo's scenes went from about 16 fps to 62.
+
 ### Fixed
 - T-Deck Plus: a touch landed away from the finger, further off towards the
   top of the screen. The GT911's range was given as 320x240, the landscape

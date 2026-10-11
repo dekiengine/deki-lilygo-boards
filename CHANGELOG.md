@@ -10,6 +10,15 @@ alongside one that has them.
 
 ## Unreleased
 
+### Added
+- T-Deck Plus: the GPS (UART on GPIO 43/44, speed found by itself, as the
+  board ships with an L76K or a u-blox M10) and the SX1262 LoRa radio (868.1
+  MHz, 14 dBm, 1% duty cycle: Europe's rules; change them for other
+  regions). Requires deki-gps and deki-lora.
+- T-Deck Plus: the keyboard's backlight can be set (`hasBacklight`).
+- T-Deck Plus: the trackball is a pointer that glides like a ThinkPad
+  TrackPoint, and its click is a mouse click. It was arrow keys.
+
 ### Fixed
 - T-Deck Plus: a touch landed away from the finger, further off towards the
   top of the screen. The GT911's range was given as 320x240, the landscape

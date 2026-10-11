@@ -9,7 +9,9 @@
     "deki-input",
     "deki-i2c",
     "deki-gpio",
-    "deki-sdcard"
+    "deki-sdcard",
+    "deki-gps",
+    "deki-lora"
   ],
   "features": []
 }

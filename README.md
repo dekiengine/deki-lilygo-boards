@@ -9,7 +9,7 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 
 Both are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
 
-**Status: builds, not yet run on hardware.** Pins and panel settings come from LilyGO's own sources (listed under each board). If something is wrong on your board, fix it in your project's copy and please open an issue.
+**Status: both boards run on hardware. On the T-Display S3 AMOLED, touch reported the wrong positions in landscape; a fix is being checked and is not in this package yet.** Pins and panel settings come from LilyGO's own sources (listed under each board). If something is wrong on your board, fix it in your project's copy and please open an issue.
 
 [Deki](https://dekiengine.com) is a modular C++ engine for embedded systems and desktop, with a visual editor. Every capability is a package, and a board is one too: this package has no code, only a description of each board and the scene that boots it.
 

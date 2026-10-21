@@ -17,8 +17,9 @@ alongside one that has them.
   (SCK 40, MOSI 41, MISO 38) before the display; the display, the SD card and
   the LoRa radio join that bus. The display is deki-display's
   `DisplayPanelComponent`, started with the T-Deck's own `initSequence` (the
-  values of `ST7789TDeck`); with no LovyanGFX in the target it has no touch
-  yet. Requires deki-display.
+  values of `ST7789TDeck`), and its touch is deki-display's
+  `TouchPanelComponent` (GT911, INT on GPIO 16); the target has no LovyanGFX.
+  Requires deki-display.
 
 ### Fixed
 - T-Deck Plus: the screen kept a fading ghost of what it showed before, such

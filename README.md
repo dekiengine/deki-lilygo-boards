@@ -6,9 +6,9 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 | --- | --- | --- | --- |
 | `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI | GT911, plus the keyboard, trackball and SD card |
 | `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI | CST816T (touch version) |
-| `lilygo_t_deck_plus_dekidisplay` | T-Deck Plus, on deki-display | 320x240 ST7789, SPI, through deki-display | none yet; the keyboard, trackball and SD card |
+| `lilygo_t_deck_plus_dekidisplay` | T-Deck Plus, on deki-display | 320x240 ST7789, SPI, through deki-display | GT911 through deki-display, plus the keyboard, trackball and SD card |
 
-`lilygo_t_deck_plus_dekidisplay` is temporary. It is the T-Deck Plus moving from LovyanGFX to Deki's own display library, so the two can be built from one project and compared. Its shared SPI bus is started by deki-spi's `SPIBusComponent`, and the display is deki-display's `DisplayPanelComponent` with the same start-up `ST7789TDeck` sends, as text in `initSequence`. It has no LovyanGFX in it, and so no touch until deki-display has its GT911 driver. When it matches, `lilygo_t_deck_plus` switches over and this target goes.
+`lilygo_t_deck_plus_dekidisplay` is temporary. It is the T-Deck Plus moving from LovyanGFX to Deki's own display library, so the two can be built from one project and compared. Its shared SPI bus is started by deki-spi's `SPIBusComponent`, and the display is deki-display's `DisplayPanelComponent` with the same start-up `ST7789TDeck` sends, as text in `initSequence`. Its touch is deki-display's `TouchPanelComponent` (GT911 at 0x5D on the I2C bus the keyboard shares, INT on GPIO 16). It has no LovyanGFX in it. When it matches, `lilygo_t_deck_plus` switches over and this target goes.
 
 Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
 

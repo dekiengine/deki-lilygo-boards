@@ -32,6 +32,11 @@ alongside one that has them.
   (0.725 V), with `rgbOrder` on. Requires deki-lovyangfx-integration with
   `ST7789TDeck`.
 
+## 0.19.0
+
+### Changed
+- `minEngine` 0.19.0: built against engine 0.19.0, whose component metadata records the package each class is in. A build of this package from before does not load and is rebuilt.
+
 ## 0.18.2
 
 ### Added

@@ -35,7 +35,7 @@ Boot order, as the boot scene lists it:
 
 1. GPIO 10 high. It switches the rail that feeds the display, the touch controller and the keyboard.
 2. GPIO 39 and GPIO 9 high. The SD card and the LoRa radio share the display's SPI bus; their chip selects are held high so they stay off it.
-3. Display: ST7789, 240x320 shown in landscape, SPI2 at 80 MHz (MOSI 41, MISO 38, SCK 40, DC 11, CS 12), backlight on GPIO 42. Each frame is sent from the other core while the next is drawn (`asyncPresent`), using two frames of PSRAM.
+3. Display: ST7789, 240x320 shown in landscape, SPI2 at 80 MHz (MOSI 41, MISO 38, SCK 40, DC 11, CS 12), backlight on GPIO 42. Each frame is sent from the other core while the next is drawn (`asyncPresent`), using two frames of PSRAM. The panel is `ST7789TDeck`: LilyGO's voltages and gamma for it and VCOM 0x19, where LovyanGFX's ST7789 init leaves a fading ghost of the last image.
 4. I2C bus: SDA 18, SCL 8.
 5. Touch: GT911 at 0x5D, interrupt on GPIO 16.
 6. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.

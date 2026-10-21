@@ -8,6 +8,16 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Fixed
+- T-Deck Plus: the screen kept a fading ghost of what it showed before, such
+  as the menu after opening a demo. LovyanGFX's ST7789 init set the panel's
+  VCOM to 0x28 (1.1 V); the display is the `ST7789TDeck` panel, started with
+  the voltages and gamma of LilyGO's own setup for the board and VCOM 0x19
+  (0.725 V), with `rgbOrder` on. Requires deki-lovyangfx-integration with
+  `ST7789TDeck`.
+
 ## 0.18.2
 
 ### Added

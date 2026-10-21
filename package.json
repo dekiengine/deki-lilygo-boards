@@ -6,6 +6,7 @@
   "requires": [
     "deki-esp32-integration",
     "deki-lovyangfx-integration",
+    "deki-display",
     "deki-input",
     "deki-i2c",
     "deki-gpio",

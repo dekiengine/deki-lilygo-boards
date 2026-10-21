@@ -15,7 +15,10 @@ alongside one that has them.
   moving the board to Deki's own display library. For now it is
   `lilygo_t_deck_plus` with deki-spi's `SPIBusComponent` starting SPI2
   (SCK 40, MOSI 41, MISO 38) before the display; the display, the SD card and
-  the LoRa radio join that bus.
+  the LoRa radio join that bus. The display is deki-display's
+  `DisplayPanelComponent`, started with the T-Deck's own `initSequence` (the
+  values of `ST7789TDeck`); with no LovyanGFX in the target it has no touch
+  yet. Requires deki-display.
 
 ### Fixed
 - T-Deck Plus: the screen kept a fading ghost of what it showed before, such

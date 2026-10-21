@@ -6,9 +6,9 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 | --- | --- | --- | --- |
 | `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI | GT911, plus the keyboard, trackball and SD card |
 | `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI | CST816T (touch version) |
-| `lilygo_t_deck_plus_dekidisplay` | T-Deck Plus, for trying deki-display | as `lilygo_t_deck_plus` | as `lilygo_t_deck_plus` |
+| `lilygo_t_deck_plus_dekidisplay` | T-Deck Plus, on deki-display | 320x240 ST7789, SPI, through deki-display | none yet; the keyboard, trackball and SD card |
 
-`lilygo_t_deck_plus_dekidisplay` is temporary. It is the T-Deck Plus moving from LovyanGFX to Deki's own display library, so the two can be built from one project and compared. For now it differs only in starting the shared SPI bus with deki-spi's `SPIBusComponent` before the display. When it matches, `lilygo_t_deck_plus` switches over and this target goes.
+`lilygo_t_deck_plus_dekidisplay` is temporary. It is the T-Deck Plus moving from LovyanGFX to Deki's own display library, so the two can be built from one project and compared. Its shared SPI bus is started by deki-spi's `SPIBusComponent`, and the display is deki-display's `DisplayPanelComponent` with the same start-up `ST7789TDeck` sends, as text in `initSequence`. It has no LovyanGFX in it, and so no touch until deki-display has its GT911 driver. When it matches, `lilygo_t_deck_plus` switches over and this target goes.
 
 Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
 
@@ -18,7 +18,7 @@ Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built wit
 
 ## Install
 
-Package Manager in the Deki Editor, or `DekiEditor --packages-add deki-lilygo-boards <project>`. It brings `deki-esp32-integration`, `deki-lovyangfx-integration`, `deki-input`, `deki-i2c`, `deki-gpio` and `deki-sdcard` with it. The keyboard and trackball are `deki-input` features that need the I2C and GPIO packages, which is why those two are listed.
+Package Manager in the Deki Editor, or `DekiEditor --packages-add deki-lilygo-boards <project>`. It brings `deki-esp32-integration`, `deki-lovyangfx-integration`, `deki-display`, `deki-input`, `deki-i2c`, `deki-gpio` and `deki-sdcard` with it. The keyboard and trackball are `deki-input` features that need the I2C and GPIO packages, which is why those two are listed.
 
 Then pick the board in the Build panel, or:
 

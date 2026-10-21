@@ -5,9 +5,9 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 | Target | Board | Display | Touch |
 | --- | --- | --- | --- |
 | `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI, through deki-display | GT911 through deki-display, plus the keyboard, trackball and SD card |
-| `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI, through LovyanGFX | CST816T (touch version), through LovyanGFX |
+| `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI, through deki-display | CST816T (touch version), through deki-display |
 
-The T-Deck Plus runs on Deki's own display library, deki-display, with no LovyanGFX in its build. The T-Display S3 AMOLED stays on LovyanGFX until deki-display drives its RM67162 over QSPI.
+Both boards run on Deki's own display library, deki-display, with no LovyanGFX in their boot scenes. The package still brings `deki-lovyangfx-integration`, so a project whose own copy of a board still uses its LovyanGFX components keeps building; **Update** on that copy moves it to deki-display.
 
 Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
 
@@ -58,17 +58,16 @@ Sources: [T-Deck `utilities.h`](https://github.com/Xinyuan-LilyGO/T-Deck/blob/ma
 Boot order:
 
 1. GPIO 38 high. The panel has no supply until it is.
-2. Display: RM67162, 240x536 shown in landscape, QSPI on SPI2 at 75 MHz (SCK 47, IO0 18, IO1 7, IO2 48, IO3 5, CS 6, reset 17). The frame buffer lives in PSRAM.
-3. I2C bus: SDA 3, SCL 2.
-4. Touch: CST816T, interrupt on GPIO 21.
+2. SPI bus: SPI2 as a quad bus (SCK 47, IO0 18, IO1 7, IO2 48, IO3 5), started by deki-spi's `SPIBusComponent`.
+3. Display: deki-display's `DisplayPanelComponent`. RM67162 over QSPI, 240x536 shown in landscape, at 75 MHz (CS 6, reset 17). The frame buffer lives in PSRAM; each strip is sent from the other core while the next is drawn (`asyncPresent`).
+4. I2C bus: SDA 3, SCL 2.
+5. Touch: deki-display's `TouchPanelComponent`. CST816T at 0x15, interrupt on GPIO 21. It sleeps, and does not answer on I2C, until it is first touched, so it is set up then; on the version without touch nothing ever answers, and the boot is not slowed by it.
 
-On the version without touch, step 4 logs that nothing answered and the boot carries on. Remove the step from your copy to skip the wait.
-
-An AMOLED has no backlight pin. Brightness is a panel command.
+An AMOLED has no backlight pin. Brightness is a panel command (0x51), which deki-display sends when the engine turns the screen off and on.
 
 The board has no SD card slot, so the game's assets are always in its flash (about 13 MB of the 16 MB).
 
-The RM67162 ignores a write whose start or size is odd along its short axis. `deki-lovyangfx-integration` widens partial screen updates to even rows on this panel, so there is nothing to do about it in a game.
+The RM67162 ignores a write whose start or size is odd along its short axis. deki-display widens partial screen updates to even rows on this panel, so there is nothing to do about it in a game.
 
 Sources: [LilyGo-AMOLED-Series `LilyGo_AMOLED.h`](https://github.com/Xinyuan-LilyGO/LilyGo-AMOLED-Series/blob/master/src/LilyGo_AMOLED.h) (`BOARD_AMOLED_191`), and LovyanGFX's own `lgfx_user/Lilygo_T_Display_S3_AMOLED.hpp`.
 

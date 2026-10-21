@@ -20,9 +20,15 @@ alongside one that has them.
   (GT911, INT on GPIO 16) on the I2C bus the keyboard shares. Measured on a
   T-Deck Plus with the frame rate uncapped: 63.2 fps in whole frames with
   10 KB more internal RAM free, and 61.0 in strips (LovyanGFX: 62.6 and
-  60.2). The target requires deki-display; the package still requires
-  deki-lovyangfx-integration for the T-Display S3 AMOLED. A project's own
-  copy of the T-Deck target takes the change with **Update**.
+  60.2). The target requires deki-display. A project's own copy of the T-Deck
+  target takes the change with **Update**.
+- **T-Display S3 AMOLED: on deki-display too.** A quad SPI bus (deki-spi's
+  `SPIBusComponent` with IO2 and IO3), the RM67162 over QSPI through
+  `DisplayPanelComponent`, and the CST816T through `TouchPanelComponent`,
+  with the same pins, rotation and touch bounds as before. The package
+  still requires deki-lovyangfx-integration, so a project whose own copy of
+  a board still uses its LovyanGFX components keeps building until it takes
+  **Update**.
 
 ### Fixed
 - T-Deck Plus: the screen kept a fading ghost of what it showed before, such

@@ -10,6 +10,13 @@ alongside one that has them.
 
 ## Unreleased
 
+### Added
+- `lilygo_t_deck_plus_dekidisplay`, a temporary T-Deck Plus target for
+  moving the board to Deki's own display library. For now it is
+  `lilygo_t_deck_plus` with deki-spi's `SPIBusComponent` starting SPI2
+  (SCK 40, MOSI 41, MISO 38) before the display; the display, the SD card and
+  the LoRa radio join that bus.
+
 ### Fixed
 - T-Deck Plus: the screen kept a fading ghost of what it showed before, such
   as the menu after opening a demo. LovyanGFX's ST7789 init set the panel's

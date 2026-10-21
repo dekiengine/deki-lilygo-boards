@@ -10,16 +10,19 @@ alongside one that has them.
 
 ## Unreleased
 
-### Added
-- `lilygo_t_deck_plus_dekidisplay`, a temporary T-Deck Plus target for
-  moving the board to Deki's own display library. For now it is
-  `lilygo_t_deck_plus` with deki-spi's `SPIBusComponent` starting SPI2
-  (SCK 40, MOSI 41, MISO 38) before the display; the display, the SD card and
-  the LoRa radio join that bus. The display is deki-display's
-  `DisplayPanelComponent`, started with the T-Deck's own `initSequence` (the
-  values of `ST7789TDeck`), and its touch is deki-display's
-  `TouchPanelComponent` (GT911, INT on GPIO 16); the target has no LovyanGFX.
-  Requires deki-display.
+### Changed
+- **T-Deck Plus: on deki-display, Deki's own display library, instead of
+  LovyanGFX.** deki-spi's `SPIBusComponent` starts SPI2 (SCK 40, MOSI 41,
+  MISO 38) before the display; the display, the SD card and the LoRa radio
+  join that bus. The display is deki-display's `DisplayPanelComponent`,
+  started with the T-Deck's own `initSequence` (the values of
+  `ST7789TDeck`), and its touch is deki-display's `TouchPanelComponent`
+  (GT911, INT on GPIO 16) on the I2C bus the keyboard shares. Measured on a
+  T-Deck Plus with the frame rate uncapped: 63.2 fps in whole frames with
+  10 KB more internal RAM free, and 61.0 in strips (LovyanGFX: 62.6 and
+  60.2). The target requires deki-display; the package still requires
+  deki-lovyangfx-integration for the T-Display S3 AMOLED. A project's own
+  copy of the T-Deck target takes the change with **Update**.
 
 ### Fixed
 - T-Deck Plus: the screen kept a fading ghost of what it showed before, such

@@ -4,11 +4,10 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 
 | Target | Board | Display | Touch |
 | --- | --- | --- | --- |
-| `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI | GT911, plus the keyboard, trackball and SD card |
-| `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI | CST816T (touch version) |
-| `lilygo_t_deck_plus_dekidisplay` | T-Deck Plus, on deki-display | 320x240 ST7789, SPI, through deki-display | GT911 through deki-display, plus the keyboard, trackball and SD card |
+| `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI, through deki-display | GT911 through deki-display, plus the keyboard, trackball and SD card |
+| `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI, through LovyanGFX | CST816T (touch version), through LovyanGFX |
 
-`lilygo_t_deck_plus_dekidisplay` is temporary. It is the T-Deck Plus moving from LovyanGFX to Deki's own display library, so the two can be built from one project and compared. Its shared SPI bus is started by deki-spi's `SPIBusComponent`, and the display is deki-display's `DisplayPanelComponent` with the same start-up `ST7789TDeck` sends, as text in `initSequence`. Its touch is deki-display's `TouchPanelComponent` (GT911 at 0x5D on the I2C bus the keyboard shares, INT on GPIO 16). It has no LovyanGFX in it. When it matches, `lilygo_t_deck_plus` switches over and this target goes.
+The T-Deck Plus runs on Deki's own display library, deki-display, with no LovyanGFX in its build. The T-Display S3 AMOLED stays on LovyanGFX until deki-display drives its RM67162 over QSPI.
 
 Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
 
@@ -38,20 +37,21 @@ Boot order, as the boot scene lists it:
 
 1. GPIO 10 high. It switches the rail that feeds the display, the touch controller and the keyboard.
 2. GPIO 39 and GPIO 9 high. The SD card and the LoRa radio share the display's SPI bus; their chip selects are held high so they stay off it.
-3. Display: ST7789, 240x320 shown in landscape, SPI2 at 80 MHz (MOSI 41, MISO 38, SCK 40, DC 11, CS 12), backlight on GPIO 42. Each frame is sent from the other core while the next is drawn (`asyncPresent`), using two frames of PSRAM. The panel is `ST7789TDeck`: LilyGO's voltages and gamma for it and VCOM 0x19, where LovyanGFX's ST7789 init leaves a fading ghost of the last image.
-4. I2C bus: SDA 18, SCL 8.
-5. Touch: GT911 at 0x5D, interrupt on GPIO 16.
-6. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.
-7. Trackball: GPIO 3, 15, 1, 2 for up, down, left, right, click on GPIO 0. A pointer that glides like a ThinkPad TrackPoint (`glideMs` 120, `acceleration` 3), with the click as a mouse button; set `mode` to `Keys` in your copy for the arrow keys and Enter instead.
-8. SD card: on the display's SPI bus, chip select GPIO 39, as `S:/`. A missing card is logged and the boot carries on (`required` is off). The game's assets are in the flash, so a game runs with no card in; a game too big for the flash can keep them on the card instead (Storage > Assets on: External storage), and then needs one.
-9. GPS: UART 1, receiving on GPIO 44 and sending on 43. The board ships with an L76K (9600 baud) or a u-blox M10 (38400), so the speed is found by itself (`baudRate` 0).
-10. LoRa: SX1262 on the display's SPI bus, CS 9, BUSY 13, RESET 17, DIO1 45, a 1.8 V TCXO on DIO3 and DIO2 switching the antenna. Set for Europe: 868.1 MHz, 14 dBm, 1% duty cycle. Change `frequencyHz` (and the power and duty cycle) in your copy for another region, such as 915 MHz in the Americas.
+3. SPI bus: SPI2 (SCK 40, MOSI 41, MISO 38), started by deki-spi's `SPIBusComponent` before everything on it, so the display can send its pixels in 32 KB transfers. The display, the SD card and the LoRa radio share it.
+4. Display: deki-display's `DisplayPanelComponent`. ST7789, 240x320 shown in landscape, at 80 MHz (DC 11, CS 12), backlight on GPIO 42. Its `initSequence` is LilyGO's own start-up for this panel (their TFT_eSPI setup for the board, INIT_SEQUENCE_2) with VCOM 0x19, tuned on a T-Deck Plus: the generic ST7789 start-up leaves a fading ghost of the last image. Each frame is sent from the other core while the next is drawn (`asyncPresent`), from two frame copies in PSRAM.
+5. I2C bus: SDA 18, SCL 8.
+6. Touch: deki-display's `TouchPanelComponent`. GT911 at 0x5D, interrupt on GPIO 16, read through the I2C bus the keyboard shares.
+7. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.
+8. Trackball: GPIO 3, 15, 1, 2 for up, down, left, right, click on GPIO 0. A pointer that glides like a ThinkPad TrackPoint (`glideMs` 120, `acceleration` 3), with the click as a mouse button; set `mode` to `Keys` in your copy for the arrow keys and Enter instead.
+9. SD card: on the display's SPI bus, chip select GPIO 39, as `S:/`. A missing card is logged and the boot carries on (`required` is off). The game's assets are in the flash, so a game runs with no card in; a game too big for the flash can keep them on the card instead (Storage > Assets on: External storage), and then needs one.
+10. GPS: UART 1, receiving on GPIO 44 and sending on 43. The board ships with an L76K (9600 baud) or a u-blox M10 (38400), so the speed is found by itself (`baudRate` 0).
+11. LoRa: SX1262 on the display's SPI bus, CS 9, BUSY 13, RESET 17, DIO1 45, a 1.8 V TCXO on DIO3 and DIO2 switching the antenna. Set for Europe: 868.1 MHz, 14 dBm, 1% duty cycle. Change `frequencyHz` (and the power and duty cycle) in your copy for another region, such as 915 MHz in the Americas.
 
 Set up by this package: display, backlight, touch, keyboard, trackball, SD card, GPS, LoRa. Keys arrive through `deki-input` like a desktop keyboard's: letters, digits, symbols, Enter, Backspace, Space, arrows.
 
 Not set up: speaker, microphone, battery reading (GPIO 4).
 
-Sources: [T-Deck `utilities.h`](https://github.com/Xinyuan-LilyGO/T-Deck/blob/master/examples/UnitTest/utilities.h), and the LovyanGFX configuration Meshtastic runs on this board ([`LGFX_T_DECK.h`](https://github.com/meshtastic/device-ui/blob/master/include/graphics/LGFX/LGFX_T_DECK.h)).
+Sources: [T-Deck `utilities.h`](https://github.com/Xinyuan-LilyGO/T-Deck/blob/master/examples/UnitTest/utilities.h), LilyGO's TFT_eSPI setup for the board (Setup210_LilyGo_T_Deck) for the panel's start-up, and the LovyanGFX configuration Meshtastic runs on this board ([`LGFX_T_DECK.h`](https://github.com/meshtastic/device-ui/blob/master/include/graphics/LGFX/LGFX_T_DECK.h)).
 
 ## T-Display S3 AMOLED
 

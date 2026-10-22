@@ -28,7 +28,9 @@ alongside one that has them.
   with the same pins, rotation and touch bounds as before. The package
   still requires deki-lovyangfx-integration, so a project whose own copy of
   a board still uses its LovyanGFX components keeps building until it takes
-  **Update**.
+  **Update**. With the panel's tearing-effect line (GPIO 9) as `tePin`, it no
+  longer tears: frames start on the panel's refresh (59.6 Hz) and go in its
+  own row order, drawn in strips of columns. 59.5 fps in strips.
 
 ### Fixed
 - T-Deck Plus: the screen kept a fading ghost of what it showed before, such

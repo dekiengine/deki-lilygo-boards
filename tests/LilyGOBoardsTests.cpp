@@ -1,9 +1,9 @@
 // The boards this package ships, read the way the editor reads them: every
 // platforms/<id>/<id>.json parses, names itself after its folder, points at a
-// boot scene that is there, describes a screen, asks only for packages this
-// package requires, and passes the ESP-IDF builder's own checks (the chip and
-// display bus reach a shell line, so a typo is refused there, not in a build
-// log). A board added later is covered without a change here.
+// boot scene that is there, describes a screen and its size, asks only for
+// packages this package requires, and passes the ESP-IDF builder's own checks
+// (the chip and display bus reach a shell line, so a typo is refused there,
+// not in a build log). A board added later is covered without a change here.
 //
 // The boot scenes themselves are checked by deki-editor's
 // ShippedPlatformTemplates tests.
@@ -89,6 +89,8 @@ TEST(LilyGOBoards, EveryBoardLoadsAndPassesTheBuildersChecks)
 
         EXPECT_GT(config.screenWidth, 0);
         EXPECT_GT(config.screenHeight, 0);
+        // A panel cannot report its size; scenes lay out for small glass by it.
+        EXPECT_GT(config.screenDiagonalInches, 0.0f);
         EXPECT_TRUE(config.colorFormat == "RGB565" || config.colorFormat == "RGB888" ||
                     config.colorFormat == "RGBA8888")
             << config.colorFormat;

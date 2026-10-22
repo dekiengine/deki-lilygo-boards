@@ -59,7 +59,7 @@ Boot order:
 
 1. GPIO 38 high. The panel has no supply until it is.
 2. SPI bus: SPI2 as a quad bus (SCK 47, IO0 18, IO1 7, IO2 48, IO3 5), started by deki-spi's `SPIBusComponent`.
-3. Display: deki-display's `DisplayPanelComponent`. RM67162 over QSPI, 240x536 shown in landscape, at 75 MHz (CS 6, reset 17). The frame buffer lives in PSRAM; each strip is sent from the other core while the next is drawn (`asyncPresent`). The panel's tearing-effect line, GPIO 9, is `tePin`: frames start on the panel's refresh and go in its own row order, so nothing tears, even swiping sideways.
+3. Display: deki-display's `DisplayPanelComponent`. RM67162 over QSPI, 240x536 shown in landscape, at 75 MHz (CS 6, reset 17). The frame buffer lives in PSRAM; each strip is sent from the other core while the next is drawn (`asyncPresent`).
 4. I2C bus: SDA 3, SCL 2.
 5. Touch: deki-display's `TouchPanelComponent`. CST816T at 0x15, interrupt on GPIO 21. It sleeps, and does not answer on I2C, until it is first touched, so it is set up then; on the version without touch nothing ever answers, and the boot is not slowed by it.
 

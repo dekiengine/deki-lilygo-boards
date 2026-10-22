@@ -10,6 +10,11 @@ alongside one that has them.
 
 ## Unreleased
 
+### Added
+- Both boards say how big their screens are, `screenDiagonalInches`: 2.8 on
+  the T-Deck Plus, 1.91 on the T-Display S3 AMOLED. Scenes use it to lay out
+  for the AMOLED's small glass; an editor without it ignores the key.
+
 ### Changed
 - **T-Deck Plus: on deki-display, Deki's own display library, instead of
   LovyanGFX.** deki-spi's `SPIBusComponent` starts SPI2 (SCK 40, MOSI 41,

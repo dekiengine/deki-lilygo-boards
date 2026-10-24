@@ -8,13 +8,7 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
-## Unreleased
-
-### Changed
-- No longer requires deki-lovyangfx-integration: both boards run on
-  deki-display. A project whose own copy of a board still uses LovyanGFX
-  components stops building until it takes **Update** on that copy (which
-  moves it to deki-display) or adds deki-lovyangfx-integration itself.
+## 0.20.0
 
 ### Added
 - The T-Deck Plus is tear-free: its panel's TE line is not wired, so its
@@ -26,6 +20,11 @@ alongside one that has them.
   for the AMOLED's small glass; an editor without it ignores the key.
 
 ### Changed
+- `minEngine` 0.20.0: built against engine 0.20.0. A build of this package from before does not load and is rebuilt.
+- No longer requires deki-lovyangfx-integration: both boards run on
+  deki-display. A project whose own copy of a board still uses LovyanGFX
+  components stops building until it takes **Update** on that copy (which
+  moves it to deki-display) or adds deki-lovyangfx-integration itself.
 - **T-Deck Plus: on deki-display, Deki's own display library, instead of
   LovyanGFX.** deki-spi's `SPIBusComponent` starts SPI2 (SCK 40, MOSI 41,
   MISO 38) before the display; the display, the SD card and the LoRa radio

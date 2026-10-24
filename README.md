@@ -7,7 +7,7 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 | `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI, through deki-display | GT911 through deki-display, plus the keyboard, trackball and SD card |
 | `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI, through deki-display | CST816T (touch version), through deki-display |
 
-Both boards run on Deki's own display library, deki-display, with no LovyanGFX in their boot scenes. The package still brings `deki-lovyangfx-integration`, so a project whose own copy of a board still uses its LovyanGFX components keeps building; **Update** on that copy moves it to deki-display.
+Both boards run on Deki's own display library, deki-display. A project whose own copy of a board still uses LovyanGFX components needs **Update** on that copy, which moves it to deki-display, or `deki-lovyangfx-integration` added by hand.
 
 Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
 
@@ -17,7 +17,7 @@ Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built wit
 
 ## Install
 
-Package Manager in the Deki Editor, or `DekiEditor --packages-add deki-lilygo-boards <project>`. It brings `deki-esp32-integration`, `deki-lovyangfx-integration`, `deki-display`, `deki-input`, `deki-i2c`, `deki-gpio` and `deki-sdcard` with it. The keyboard and trackball are `deki-input` features that need the I2C and GPIO packages, which is why those two are listed.
+Package Manager in the Deki Editor, or `DekiEditor --packages-add deki-lilygo-boards <project>`. It brings `deki-esp32-integration`, `deki-display`, `deki-input`, `deki-i2c`, `deki-gpio` and `deki-sdcard` with it. The keyboard and trackball are `deki-input` features that need the I2C and GPIO packages, which is why those two are listed.
 
 Then pick the board in the Build panel, or:
 
@@ -38,7 +38,7 @@ Boot order, as the boot scene lists it:
 1. GPIO 10 high. It switches the rail that feeds the display, the touch controller and the keyboard.
 2. GPIO 39 and GPIO 9 high. The SD card and the LoRa radio share the display's SPI bus; their chip selects are held high so they stay off it.
 3. SPI bus: SPI2 (SCK 40, MOSI 41, MISO 38), started by deki-spi's `SPIBusComponent` before everything on it, so the display can send its pixels in 32 KB transfers. The display, the SD card and the LoRa radio share it.
-4. Display: deki-display's `DisplayPanelComponent`. ST7789, 240x320 shown in landscape, at 80 MHz (DC 11, CS 12), backlight on GPIO 42. Its `initSequence` is LilyGO's own start-up for this panel (their TFT_eSPI setup for the board, INIT_SEQUENCE_2) with VCOM 0x19, tuned on a T-Deck Plus: the generic ST7789 start-up leaves a fading ghost of the last image. Each frame is sent from the other core while the next is drawn (`asyncPresent`), from two frame copies in PSRAM.
+4. Display: deki-display's `DisplayPanelComponent`. ST7789, 240x320 shown in landscape, at 80 MHz (DC 11, CS 12), backlight on GPIO 42. Its `initSequence` is LilyGO's own start-up for this panel (their TFT_eSPI setup for the board, INIT_SEQUENCE_2) with VCOM 0x19, tuned on a T-Deck Plus: the generic ST7789 start-up leaves a fading ghost of the last image. Each frame is sent from the other core while the next is drawn (`asyncPresent`), from two frame copies in PSRAM. The panel's TE line is not wired, so frames are kept in step with its refresh by reading its scanline back (`scanlineSync`), on its data line at 10 MHz (`readsOnMosi`): no frame tears.
 5. I2C bus: SDA 18, SCL 8.
 6. Touch: deki-display's `TouchPanelComponent`. GT911 at 0x5D, interrupt on GPIO 16, read through the I2C bus the keyboard shares.
 7. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.

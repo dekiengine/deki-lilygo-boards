@@ -10,7 +10,17 @@ alongside one that has them.
 
 ## Unreleased
 
+### Changed
+- No longer requires deki-lovyangfx-integration: both boards run on
+  deki-display. A project whose own copy of a board still uses LovyanGFX
+  components stops building until it takes **Update** on that copy (which
+  moves it to deki-display) or adds deki-lovyangfx-integration itself.
+
 ### Added
+- The T-Deck Plus is tear-free: its panel's TE line is not wired, so its
+  display reads the panel's scanline instead (`scanlineSync`, answering on
+  the data line, `readsOnMosi`). A new scene no longer shows as a diagonal
+  wipe.
 - Both boards say how big their screens are, `screenDiagonalInches`: 2.8 on
   the T-Deck Plus, 1.91 on the T-Display S3 AMOLED. Scenes use it to lay out
   for the AMOLED's small glass; an editor without it ignores the key.

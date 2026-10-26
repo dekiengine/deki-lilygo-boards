@@ -4,14 +4,15 @@ Build targets for LilyGO boards. Install the package and the boards appear in th
 
 | Target | Board | Display | Touch |
 | --- | --- | --- | --- |
+| `lilygo_t_deck` | T-Deck | 320x240 ST7789, SPI, through deki-display | GT911 through deki-display, plus the keyboard, trackball and SD card |
 | `lilygo_t_deck_plus` | T-Deck Plus | 320x240 ST7789, SPI, through deki-display | GT911 through deki-display, plus the keyboard, trackball and SD card |
 | `lilygo_t_display_s3_amoled` | T-Display S3 AMOLED 1.91" | 536x240 RM67162 AMOLED, QSPI, through deki-display | CST816T (touch version), through deki-display |
 
-Both boards run on Deki's own display library, deki-display. A project whose own copy of a board still uses LovyanGFX components needs **Update** on that copy, which moves it to deki-display, or `deki-lovyangfx-integration` added by hand.
+Every board runs on Deki's own display library, deki-display. A project whose own copy of a board still uses LovyanGFX components needs **Update** on that copy, which moves it to deki-display, or `deki-lovyangfx-integration` added by hand.
 
-Both boards are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
+All of them are ESP32-S3 boards with 16 MB flash and 8 MB octal PSRAM, built with ESP-IDF.
 
-**Status: both boards run on hardware, touch included.** Pins and panel settings come from LilyGO's own sources (listed under each board). If something is wrong on your board, fix it in your project's copy and please open an issue.
+**Status: every board runs on hardware, touch included.** Pins and panel settings come from LilyGO's own sources (listed under each board). If something is wrong on your board, fix it in your project's copy and please open an issue.
 
 [Deki](https://dekiengine.com) is a modular C++ engine for embedded systems and desktop, with a visual editor. Every capability is a package, and a board is one too: this package has no code, only a description of each board and the scene that boots it.
 
@@ -38,7 +39,7 @@ Boot order, as the boot scene lists it:
 1. GPIO 10 high. It switches the rail that feeds the display, the touch controller and the keyboard.
 2. GPIO 39 and GPIO 9 high. The SD card and the LoRa radio share the display's SPI bus; their chip selects are held high so they stay off it.
 3. SPI bus: SPI2 (SCK 40, MOSI 41, MISO 38), started by deki-spi's `SPIBusComponent` before everything on it, so the display can send its pixels in 32 KB transfers. The display, the SD card and the LoRa radio share it.
-4. Display: deki-display's `DisplayPanelComponent`. ST7789, 240x320 shown in landscape, at 80 MHz (DC 11, CS 12), backlight on GPIO 42. Its `initSequence` is LilyGO's own start-up for this panel (their TFT_eSPI setup for the board, INIT_SEQUENCE_2) with VCOM 0x19, tuned on a T-Deck Plus: the generic ST7789 start-up leaves a fading ghost of the last image. Each frame is sent from the other core while the next is drawn (`asyncPresent`), from two frame copies in PSRAM. The panel's TE line is not wired, so frames are kept in step with its refresh by reading its scanline back (`scanlineSync`), on its data line at 10 MHz (`readsOnMosi`): no frame tears.
+4. Display: deki-display's `DisplayPanelComponent`. ST7789, 240x320 shown in landscape, at 80 MHz (DC 11, CS 12), backlight on GPIO 42. Its `initSequence` is LilyGO's own start-up for this panel (their TFT_eSPI setup for the board, INIT_SEQUENCE_2) with VCOM 0x19, tuned on a T-Deck Plus: the generic ST7789 start-up leaves a fading ghost of the last image. It also sets the panel's byte order (RAMCTRL, `B0 00 F0`): without it the panel keeps the one it powers up with, and some T-Decks power up the other way round, which shows dark colours pink and white green. Each frame is sent from the other core while the next is drawn (`asyncPresent`), from two frame copies in PSRAM. The panel's TE line is not wired, so frames are kept in step with its refresh by reading its scanline back (`scanlineSync`), on its data line at 10 MHz (`readsOnMosi`): no frame tears.
 5. I2C bus: SDA 18, SCL 8.
 6. Touch: deki-display's `TouchPanelComponent`. GT911 at 0x5D, interrupt on GPIO 16, read through the I2C bus the keyboard shares.
 7. Keyboard: the board's own keyboard controller, on the same I2C bus at 0x55. It is still starting at this point, so it is looked for over the first few seconds.
@@ -52,6 +53,14 @@ Set up by this package: display, backlight, touch, keyboard, trackball, SD card,
 Not set up: speaker, microphone, battery reading (GPIO 4).
 
 Sources: [T-Deck `utilities.h`](https://github.com/Xinyuan-LilyGO/T-Deck/blob/master/examples/UnitTest/utilities.h), LilyGO's TFT_eSPI setup for the board (Setup210_LilyGo_T_Deck) for the panel's start-up, and the LovyanGFX configuration Meshtastic runs on this board ([`LGFX_T_DECK.h`](https://github.com/meshtastic/device-ui/blob/master/include/graphics/LGFX/LGFX_T_DECK.h)).
+
+## T-Deck
+
+The first T-Deck, before the Plus: the same board as the T-Deck Plus above, step for step, without the GPS. The Plus has its GPS on GPIO 43 and 44; on the T-Deck those pins are the Grove port, left free for you.
+
+Colours that look wrong on a T-Deck of either kind (dark colours pink, white green) mean the panel reads each pixel's two bytes the other way round. The boot scene sets the panel's byte order to stop that; a panel that still shows it needs **Swap Bytes** on in the display's settings.
+
+Tested on hardware by a user, on a first T-Deck, with the T-Deck Plus's boot scene.
 
 ## T-Display S3 AMOLED
 
@@ -71,9 +80,9 @@ The RM67162 ignores a write whose start or size is odd along its short axis. dek
 
 Sources: [LilyGo-AMOLED-Series `LilyGo_AMOLED.h`](https://github.com/Xinyuan-LilyGO/LilyGo-AMOLED-Series/blob/master/src/LilyGo_AMOLED.h) (`BOARD_AMOLED_191`), and LovyanGFX's own `lgfx_user/Lilygo_T_Display_S3_AMOLED.hpp`.
 
-## Both boards
+## Every board
 
-The serial console is the ESP32-S3's own USB port (`CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG`). Neither board has a USB-UART bridge.
+The serial console is the ESP32-S3's own USB port (`CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG`). None of them has a USB-UART bridge.
 
 To flash a board that does not show up as a port: hold BOOT (the trackball click on the T-Deck), press RESET, release BOOT.
 

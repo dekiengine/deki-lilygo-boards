@@ -8,6 +8,18 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Added
+- The first T-Deck, `lilygo_t_deck`: the T-Deck Plus's boot scene without the
+  GPS, whose pins are the T-Deck's Grove port.
+
+### Fixed
+- Colours on T-Decks whose panel takes each pixel's bytes the other way round
+  (dark colours pink, white green). LilyGO's start-up sequence, which the
+  boards use, never set the panel's byte order, so it kept the one it powered
+  up with; it is set now (RAMCTRL `B0 00 F0`). Tested on a first T-Deck.
+
 ## 0.20.0
 
 ### Added

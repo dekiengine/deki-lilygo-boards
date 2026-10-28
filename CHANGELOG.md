@@ -8,11 +8,15 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
-## Unreleased
+## 0.21.0
 
 ### Added
 - The first T-Deck, `lilygo_t_deck`: the T-Deck Plus's boot scene without the
   GPS, whose pins are the T-Deck's Grove port.
+
+### Changed
+- `minEngine` 0.21.0: built against engine 0.21.0. A build of this package
+  from before does not load and is rebuilt.
 
 ### Fixed
 - Colours on T-Decks whose panel takes each pixel's bytes the other way round

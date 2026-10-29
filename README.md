@@ -97,6 +97,10 @@ platforms/<id>/boot.scene   what brings its hardware up
 
 Prefix the id with `lilygo_`. Two installed packages offering the same id is an error, not a choice the editor makes for you.
 
+## Community
+
+Questions, ideas and what you made with Deki: [the Deki Discord](https://dekiengine.com/discord/).
+
 ## License
 
 Apache 2.0. See [LICENSE](LICENSE).

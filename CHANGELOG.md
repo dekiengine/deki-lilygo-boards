@@ -8,6 +8,18 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Added
+- **The speaker.** The T-Deck and T-Deck Plus boot scenes set up the
+  MAX98357A amplifier on I2S 0 (BCK 7, WS 5, DOUT 6) at 22050 Hz mono, so a
+  project with deki-audio plays sound. The platforms say so to the editor
+  (`audioSampleRate` 22050, `audioChannels` 1), which converts each audio
+  to that. An existing project gets it with **Update** on its platform.
+
+### Changed
+- Requires deki-audio and deki-i2s, for the speaker.
+
 ## 0.40.0
 
 ### Changed

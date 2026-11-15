@@ -11,7 +11,9 @@
     "psramMode": "oct",
     "sdkconfig": [
       "CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y"
-    ]
+    ],
+    "audioSampleRate": 22050,
+    "audioChannels": 1
   },
   "externalMemorySize": 8388608,
   "screenWidth": 320,

@@ -11,7 +11,9 @@
     "deki-gpio",
     "deki-sdcard",
     "deki-gps",
-    "deki-lora"
+    "deki-lora",
+    "deki-audio",
+    "deki-i2s"
   ],
   "features": []
 }

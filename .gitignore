@@ -17,3 +17,6 @@ cmake-build-*/
 # Build artifacts from project junction
 generated/
 .deki-package.json
+
+# The editor writes a sidecar next to a scene it opens; platform scenes need none.
+platforms/**/*.scene.data

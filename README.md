@@ -47,10 +47,11 @@ Boot order, as the boot scene lists it:
 9. SD card: on the display's SPI bus, chip select GPIO 39, as `S:/`. A missing card is logged and the boot carries on (`required` is off). The game's assets are in the flash, so a game runs with no card in; a game too big for the flash can keep them on the card instead (Storage > Assets on: External storage), and then needs one.
 10. GPS: UART 1, receiving on GPIO 44 and sending on 43. The board ships with an L76K (9600 baud) or a u-blox M10 (38400), so the speed is found by itself (`baudRate` 0).
 11. LoRa: SX1262 on the display's SPI bus, CS 9, BUSY 13, RESET 17, DIO1 45, a 1.8 V TCXO on DIO3 and DIO2 switching the antenna. Set for Europe: 868.1 MHz, 14 dBm, 1% duty cycle. Change `frequencyHz` (and the power and duty cycle) in your copy for another region, such as 915 MHz in the Americas.
+12. Speaker: the MAX98357A amplifier on I2S 0 (BCK 7, WS 5, DOUT 6), at 22050 Hz mono and 80% volume, through deki-audio. Its I2S channel opens with the first sound, so a game that plays none keeps that RAM. The editor converts each audio to this rate in mono (the platform's `audioSampleRate` and `audioChannels`).
 
-Set up by this package: display, backlight, touch, keyboard, trackball, SD card, GPS, LoRa. Keys arrive through `deki-input` like a desktop keyboard's: letters, digits, symbols, Enter, Backspace, Space, arrows.
+Set up by this package: display, backlight, touch, keyboard, trackball, SD card, GPS, LoRa, speaker. Keys arrive through `deki-input` like a desktop keyboard's: letters, digits, symbols, Enter, Backspace, Space, arrows.
 
-Not set up: speaker, microphone, battery reading (GPIO 4).
+Not set up: microphone, battery reading (GPIO 4).
 
 Sources: [T-Deck `utilities.h`](https://github.com/Xinyuan-LilyGO/T-Deck/blob/master/examples/UnitTest/utilities.h), LilyGO's TFT_eSPI setup for the board (Setup210_LilyGo_T_Deck) for the panel's start-up, and the LovyanGFX configuration Meshtastic runs on this board ([`LGFX_T_DECK.h`](https://github.com/meshtastic/device-ui/blob/master/include/graphics/LGFX/LGFX_T_DECK.h)).
 

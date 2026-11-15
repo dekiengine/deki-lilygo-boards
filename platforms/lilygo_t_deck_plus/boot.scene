@@ -121,13 +121,13 @@
                 "offsetY": 0,
                 "panelHeight": 320,
                 "panelWidth": 240,
+                "readsOnMosi": true,
                 "rgbOrder": true,
                 "rotation": "Landscape",
                 "rstPin": -1,
+                "scanlineSync": true,
                 "spiHost": 1,
                 "spiWriteHz": 80000000,
-                "scanlineSync": true,
-                "readsOnMosi": true,
                 "usePsram": false
               },
               "type": "DekiDisplay::DisplayPanelComponent"
@@ -205,7 +205,8 @@
               "properties": {
                 "hasBacklight": true,
                 "i2cAddress": 85,
-                "i2cPort": 0
+                "i2cPort": 0,
+                "reportHeldKeys": false
               },
               "type": "DekiInput::I2CKeyboardComponent"
             }
@@ -344,6 +345,33 @@
             "x": 0.0,
             "y": 0.0
           }
+        },
+        {
+          "active": true,
+          "children": [],
+          "components": [
+            {
+              "properties": {
+                "bclkPin": 7,
+                "channels": 1,
+                "dinPin": 6,
+                "i2sPort": 0,
+                "initialVolume": 80,
+                "lrclkPin": 5,
+                "sampleRate": 22050
+              },
+              "type": "DekiAudio::MAX98357AudioComponent"
+            }
+          ],
+          "id": 620,
+          "name": "Speaker",
+          "transform": {
+            "rotation": 0.0,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "x": 0.0,
+            "y": 0.0
+          }
         }
       ],
       "components": [
@@ -397,6 +425,10 @@
               {
                 "id": 610,
                 "typeId": 3861937037
+              },
+              {
+                "id": 620,
+                "typeId": 291159633
               }
             ]
           },

@@ -359,7 +359,7 @@
                 "channels": 1,
                 "dinPin": 6,
                 "i2sPort": 0,
-                "initialVolume": 10,
+                "initialVolume": 0,
                 "lrclkPin": 5,
                 "sampleRate": 22050
               },
